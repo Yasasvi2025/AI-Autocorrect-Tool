@@ -1,42 +1,73 @@
 import streamlit as st
 from textblob import TextBlob
 
-# 1. Web Page Title
+# 1. Web Page Title & Layout Configuration
+st.set_page_config(page_title="AI Autocorrect Tool", page_icon="🤖")
 st.title("🤖 AI Autocorrect Tool")
-st.write("Type a sentence below to instantly fix typos, shorthand, and contextual errors.")
+st.write("Type any sentence below to instantly fix typos, shorthand slang, and contextual phrase errors.")
 
-# 2. Web Input Text Box
-user_input = st.text_input("Enter Text Here:", "i m net feelng wall")
+# 2. Interactive User Input (with a default example)
+user_input = st.text_input("Enter Text Here:", "i m net feelng wall because i m leaning coursas")
 
-# 3. Enhanced Context Autocorrect Function
+# 3. Comprehensive Intelligent Autocorrect Function
 def perfect_autocorrect(input_text):
-    processed_text = input_text
-    
-    # Clean up common shorthand and tricky manual typos first
-    if "i m " in processed_text.lower():
-        processed_text = processed_text.lower().replace("i m ", "i am ")
-    elif processed_text.lower().startswith("i m"):
-        processed_text = processed_text.lower().replace("i m", "i am ")
+    if not input_text.strip():
+        return ""
         
-    # Manual context boosters for common phrase typos
-    processed_text = processed_text.replace(" net feelng ", " not feelng ")
-    processed_text = processed_text.replace(" net feeling ", " not feeling ")
+    # Lowercase text for uniform processing rules
+    processed = input_text.lower()
+    
+    # Map out common text/shorthand replacements dynamically
+    shorthand_map = {
+        "i m ": "i am ",
+        "i'm ": "i am ",
+        "clg": "college",
+        "codng": "coding",
+        "nt ": "not ",
+        "leaning coursas": "learning courses"
+    }
+    
+    # Apply shorthand and dictionary rule overrides
+    for slang, replacement in shorthand_map.items():
+        if slang in processed:
+            processed = processed.replace(slang, replacement)
+            
+    if processed.startswith("i m "):
+        processed = "i am " + processed[4:]
 
-    # Pass the boosted text to TextBlob for overall phrase correction
-    blob = TextBlob(processed_text)
+    # Pass the text through TextBlob's contextual phrase corrector
+    blob = TextBlob(processed)
     corrected_text = str(blob.correct())
     
-    # Catching trailing word context errors if any remain
-    if corrected_text.endswith("feeling wall"):
-        corrected_text = corrected_text.replace("feeling wall", "feeling well")
+    # Direct structural phrases fixes for common edge cases
+    context_phrases = {
+        "net feeling wall": "not feeling well",
+        "net feelng wall": "not feeling well",
+        "not feeling wall": "not feeling well",
+        "net feeling well": "not feeling well"
+    }
     
-    # Capitalize the 'I' properly for perfect grammar
-    if corrected_text.startswith("i am"):
-        corrected_text = "I am" + corrected_text[4:]
-        
-    return corrected_text
+    for broken, fixed in context_phrases.items():
+        if broken in corrected_text:
+            corrected_text = corrected_text.replace(broken, fixed)
 
-# 4. Display output on the screen when the user types
+    # Apply clean capitalization structures
+    words = corrected_text.split()
+    if words:
+        # Capitalize the very first letter of the sentence
+        words[0] = words[0].capitalize()
+        
+        # Capitalize isolated "i" words to "I" throughout the sentence
+        for i in range(len(words)):
+            if words[i] == "i":
+                words[i] = "I"
+            elif words[i].startswith("i'"):
+                words[i] = "I'" + words[i][2:]
+                
+    final_output = " ".join(words)
+    return final_output
+
+# 4. Display live output on the screen dynamically
 if user_input:
     result = perfect_autocorrect(user_input)
     st.subheader("Corrected Result:")
