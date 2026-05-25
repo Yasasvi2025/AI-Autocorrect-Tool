@@ -1,41 +1,34 @@
-from spellchecker import SpellChecker
+import streamlit as st
+from textblob import TextBlob
 
+# 1. Web Page Title
+st.title("🤖 AI Autocorrect Tool")
+st.write("Type a sentence below to instantly fix typos, shorthand, and contextual errors.")
+
+# 2. Web Input Text Box
+user_input = st.text_input("Enter Text Here:", "i m net feelng wall")
+
+# 3. TextBlob Context Autocorrect Function
 def perfect_autocorrect(input_text):
-    spell = SpellChecker()
-    
-    # 1. Clean up the basic shorthand first ("i m " -> "I am ")
+    # Fix basic shorthand spacing first
     processed_text = input_text
     if "i m " in processed_text.lower():
-        processed_text = processed_text.lower().replace("i m ", "I am ")
+        processed_text = processed_text.lower().replace("i m ", "i am ")
     elif processed_text.lower().startswith("i m"):
-        processed_text = processed_text.lower().replace("i m", "I am")
-            
-    # 2. Split into individual words to fix spelling and context
-    words = processed_text.split()
-    corrected_words = []
-    
-    for word in words:
-        clean_word = word.strip(".,!?\"'")
-        
-        # CONTEXT FIX: Forcefully change "leaning" to "learning"
-        if clean_word.lower() == "leaning":
-            corrected_words.append("learning")
-        
-        # SPELLING FIX: Check all other words
-        else:
-            misspelled = spell.unknown([clean_word.lower()])
-            if misspelled:
-                corrected = spell.correction(clean_word.lower())
-                corrected_words.append(corrected if corrected else word)
-            else:
-                corrected_words.append(word)
-            
-    return " ".join(corrected_words)
+        processed_text = processed_text.lower().replace("i m", "i am ")
 
-if __name__ == "__main__":
-    print("--- Pure Python Autocorrect ---")
-    test_1 = "i m leaning coursas"
-    print(f"\nOriginal:  {test_1}")
-    print(f"Corrected: {perfect_autocorrect(test_1)}")
-
+    # Use TextBlob to analyze the whole phrase context
+    blob = TextBlob(processed_text)
+    corrected_text = str(blob.correct())
     
+    # Capitalize the 'I' for proper grammar structure
+    if corrected_text.startswith("i am"):
+        corrected_text = "I am" + corrected_text[4:]
+        
+    return corrected_text
+
+# 4. Display output on the screen when the user types
+if user_input:
+    result = perfect_autocorrect(user_input)
+    st.subheader("Corrected Result:")
+    st.success(result)
