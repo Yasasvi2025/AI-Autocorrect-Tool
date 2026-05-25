@@ -30,7 +30,7 @@ def perfect_autocorrect(input_text):
             corrected_words.append("learning")
         else:
             # Spelling Check
-           misspelled = spell.unknown([clean_word.lower()])
+            misspelled = spell.unknown([clean_word.lower()])
             if misspelled:
                 corrected = spell.correction(clean_word.lower())
                 corrected_words.append(corrected if corrected else word)
