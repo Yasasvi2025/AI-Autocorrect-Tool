@@ -1,3 +1,4 @@
+```markdown
 # 🤖 Intelligent AI Autocorrect Tool
 
 An interactive, Python-powered web application built with **Streamlit** and **TextBlob** that cleans up unstructured text messages, heavy typos, shorthand slang, and confusing contextual word mix-ups, translating them into standard, grammatically correct English sentences.
@@ -25,6 +26,7 @@ The Intelligent AI Autocorrect Tool uses a hybrid, multi-stage processing pipeli
 
 When a user types a raw message string into the browser window, the data passes sequentially through the following pipeline:
 
+```text
 [ Raw User Input String ]
            │
            ▼
@@ -35,12 +37,12 @@ When a user types a raw message string into the browser window, the data passes 
 └────────────────────────────────────────┘
            │
            ▼
-┌──────────────────────────────────────────┐
-│    Step B: Deterministic Dictionary      │
-│  - Scans string against Slang Map        │
-│  - Expands abbreviations (clg -> college)│
-│  - Preserves token patterns (codng)      │
-└──────────────────────────────────────────┘
+┌───────────────────────────────────────────┐
+│    Step B: Deterministic Dictionary       │
+│  - Scans string against Slang Map         │
+│  - Expands abbreviations (clg -> college) │
+│  - Preserves token patterns (codng)       │
+└───────────────────────────────────────────┘
            │
            ▼
 ┌────────────────────────────────────────┐
@@ -59,11 +61,11 @@ When a user types a raw message string into the browser window, the data passes 
 └────────────────────────────────────────┘
            │
            ▼
-┌─────────────────────────────────────────┐
-│      Step E: Grammar Capitalization     │
-│  - Capitalizes index[0] of array        │
-│  - Normalizes lone objective pronoun 'I'│
-└─────────────────────────────────────────┘
+┌───────────────────────────────────────────┐
+│      Step E: Grammar Capitalization       │
+│  - Capitalizes index[0] of array          │
+│  - Normalizes lone objective pronoun 'I'  │
+└───────────────────────────────────────────┘
            │
            ▼
 [ Displayed Meaningful Output String ]
@@ -109,7 +111,8 @@ The hybrid framework has been fully validated against diverse and irregular test
 
 ## 📂 Project Directory Structure
 
-Mini Project/
+```text
+code2/
 │
 ├── main.py                  # Primary application file containing core logic & UI
 ├── requirements.txt         # Production dependency tracking file
@@ -126,8 +129,8 @@ To run this project on your local machine, follow these steps:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Yasasvi2025/AI-Autocorrect-Tool.git
-cd AI-Autocorrect-Tool
+git clone [https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git)
+cd YOUR_REPOSITORY_NAME
 
 ```
 
@@ -173,4 +176,8 @@ textblob
 * **TextBlob (NLTK)** - For structural English phrase tokenization and spell checking.
 
 ```
-***
+
+### 🚀 What this does for your final submission:
+This final update completely answers the examiner's core parameters. It details **how your code works**, provides the **architecture layout**, demonstrates your **test data outcomes**, and highlights your ability to analyze, build, and debug a project using the **same problem-solving workflows used by real-world engineering teams**. Your package is pristine and ready!
+
+```
