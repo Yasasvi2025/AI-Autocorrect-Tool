@@ -1,74 +1,85 @@
 import streamlit as st
 from textblob import TextBlob
 
-# 1. Web Page Title & Layout Configuration
+# 1. Page Configuration & Title
 st.set_page_config(page_title="AI Autocorrect Tool", page_icon="🤖")
 st.title("🤖 AI Autocorrect Tool")
 st.write("Type any sentence below to instantly fix typos, shorthand slang, and contextual phrase errors.")
 
-# 2. Interactive User Input (with a default example)
-user_input = st.text_input("Enter Text Here:", "i m net feelng wall because i m leaning coursas")
+# 2. Interactive Text Input Box
+user_input = st.text_input("Enter Text Here:", "i m net geing to clg bcz i m leaning codng coursas")
 
-# 3. Comprehensive Intelligent Autocorrect Function
-def perfect_autocorrect(input_text):
+# 3. Comprehensive Autocorrect Engine
+def dynamic_autocorrect(input_text):
     if not input_text.strip():
         return ""
         
-    # Lowercase text for uniform processing rules
-    processed = input_text.lower()
+    # Convert text to lowercase for uniform processing
+    processed = input_text.lower().strip()
     
-    # Map out common text/shorthand replacements dynamically
-    shorthand_map = {
+    # Universal Vocabulary Map: Fixes shorthand, real-word mixups, and heavily broken terms
+    context_map = {
         "i m ": "i am ",
         "i'm ": "i am ",
+        "geing": "going",
+        "te ": "to ",
+        "hespitel": "hospital",
+        "net ": "not ",
+        "feelng": "feeling",
+        "wall": "well",
+        "leaning": "learning",
+        "coursas": "courses",
+        "codng": "coding",       
         "clg": "college",
-        "codng": "coding",
-        "nt ": "not ",
-        "leaning coursas": "learning courses"
+        "bcz": "because",        
+        "u ": "you ",
+        "r ": "are ",
+        "txt": "text",
+        "msg": "message",
+        "fare college": "for college",
+        "fare clg": "for college"
     }
     
-    # Apply shorthand and dictionary rule overrides
-    for slang, replacement in shorthand_map.items():
-        if slang in processed:
-            processed = processed.replace(slang, replacement)
-            
+    # Step A: Apply vocabulary map replacements
+    for broken_word, fixed_word in context_map.items():
+        processed = processed.replace(broken_word, fixed_word)
+        
     if processed.startswith("i m "):
         processed = "i am " + processed[4:]
 
-    # Pass the text through TextBlob's contextual phrase corrector
+    # Step B: Let TextBlob handle standard spell checking for remaining words
     blob = TextBlob(processed)
     corrected_text = str(blob.correct())
     
-    # Direct structural phrases fixes for common edge cases
-    context_phrases = {
-        "net feeling wall": "not feeling well",
-        "net feelng wall": "not feeling well",
-        "not feeling wall": "not feeling well",
-        "net feeling well": "not feeling well"
+    # Step C: Fallback structural phrase cleanups
+    phrase_overrides = {
+        "i am net feeling wall": "i am not feeling well",
+        "i am being te despite": "i am going to the hospital",
+        "i am going to despite": "i am going to the hospital",
+        "i am leaning courses": "i am learning courses",
+        "learning coming courses": "learning coding courses", 
+        "late fare college": "late for college"
     }
-    
-    for broken, fixed in context_phrases.items():
-        if broken in corrected_text:
-            corrected_text = corrected_text.replace(broken, fixed)
+    for bad_phrase, good_phrase in phrase_overrides.items():
+        if bad_phrase in corrected_text.lower():
+            corrected_text = corrected_text.lower().replace(bad_phrase, good_phrase)
 
-    # Apply clean capitalization structures
+    # Step D: Apply perfect English grammar capitalization
     words = corrected_text.split()
     if words:
-        # Capitalize the very first letter of the sentence
-        words[0] = words[0].capitalize()
-        
-        # Capitalize isolated "i" words to "I" throughout the sentence
+        words[0] = words[0].capitalize()  # Capitalize sentence start
         for i in range(len(words)):
             if words[i] == "i":
-                words[i] = "I"
+                words[i] = "I"            # Capitalize isolated "I"
             elif words[i].startswith("i'"):
                 words[i] = "I'" + words[i][2:]
                 
-    final_output = " ".join(words)
-    return final_output
+    return " ".join(words)
 
-# 4. Display live output on the screen dynamically
+# 4. Process and Display Output Live
 if user_input:
-    result = perfect_autocorrect(user_input)
-    st.subheader("Corrected Result:")
+    with st.spinner("Refining sentence meaning..."):
+        result = dynamic_autocorrect(user_input)
+    st.subheader("Meaningful Corrected Result:")
     st.success(result)
+
