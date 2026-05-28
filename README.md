@@ -26,7 +26,6 @@ The Intelligent AI Autocorrect Tool uses a hybrid, multi-stage processing pipeli
 
 When a user types a raw message string into the browser window, the data passes sequentially through the following pipeline:
 
-```text
 [ Raw User Input String ]
            │
            ▼
@@ -129,8 +128,8 @@ To run this project on your local machine, follow these steps:
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git)
-cd YOUR_REPOSITORY_NAME
+git clone https://github.com/Yasasvi2025/AI-Autocorrect-Tool.git
+cd AI-Autocorrect-Tool
 
 ```
 
@@ -174,10 +173,5 @@ textblob
 * **Python**
 * **Streamlit** - For building the interactive front-end web layout.
 * **TextBlob (NLTK)** - For structural English phrase tokenization and spell checking.
-
-```
-
-### 🚀 What this does for your final submission:
-This final update completely answers the examiner's core parameters. It details **how your code works**, provides the **architecture layout**, demonstrates your **test data outcomes**, and highlights your ability to analyze, build, and debug a project using the **same problem-solving workflows used by real-world engineering teams**. Your package is pristine and ready!
 
 ```
