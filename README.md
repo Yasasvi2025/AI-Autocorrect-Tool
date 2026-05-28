@@ -111,7 +111,7 @@ The hybrid framework has been fully validated against diverse and irregular test
 ## 📂 Project Directory Structure
 
 ```text
-code2/
+Mini Project/
 │
 ├── main.py                  # Primary application file containing core logic & UI
 ├── requirements.txt         # Production dependency tracking file
@@ -175,3 +175,4 @@ textblob
 * **TextBlob (NLTK)** - For structural English phrase tokenization and spell checking.
 
 ```
+***
