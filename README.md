@@ -97,14 +97,14 @@ Building this mini-project provided significant hands-on experience mirroring in
 
 ## 📊 Validated Test Matrix
 
-The hybrid framework has been fully validated against diverse and irregular test sentences to verify semantic correctness:
+The hybrid framework has been fully validated against diverse, complex, and irregular test sentences to verify semantic correctness:
 
 | Raw User Input | Corrected System Output | Target Error Resolved |
-| --- | --- | --- |
-| `i m net feelng wall` | **I am not feeling well** | Shorthand expansion + Context correction (`net` ➔ `not`, `wall` ➔ `well`) |
-| `i m geing te hespitel` | **I am going to the hospital** | Heavy phonetic typo clustering and slang translation |
-| `You are late fare college` | **You are late for college** | Homophone confusion resolution (`fare` ➔ `for`) |
-| `i m net geing to clg bcz i m leaning codng coursas` | **I am not going to college because I am learning coding courses** | Complex multi-word correction & custom programming word mapping (`codng` ➔ `coding`) |
+| :--- | :--- | :--- |
+| `lect` | **Lecture** | Standalone single-word shorthand expansion and auto-capitalization. |
+| `i m net leaning codng coursas bcz i am being te despite` | **I am not learning coding courses because I am going to the hospital** | Complex multi-word correction, custom tech token routing, and severe phonetic typo clustering. |
+| `You are late fare college` | **You are late for college** | Homophone context confusion resolution (`fare` ➔ `for`). |
+| `want learn patron` | **Want to learn python** | Blocks TextBlob dictionary hijacking of specific technical keywords (`patron` ➔ `python`). |
 
 ---
 
