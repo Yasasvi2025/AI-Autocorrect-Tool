@@ -111,7 +111,7 @@ The hybrid framework has been fully validated against diverse, complex, and irre
 ## 📂 Project Directory Structure
 
 ```text
-Mini Project/
+MiniProject/
 │
 ├── main.py                  # Primary application file containing core logic & UI
 ├── requirements.txt         # Production dependency tracking file
